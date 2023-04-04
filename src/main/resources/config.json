@@ -2,5 +2,6 @@
   "baidu": {
     "apiKey": "xxxx",
     "secretKey" : "xxxx"
-  }
+  },
+  "rssUrl": "https://www.people.com.cn/rss/politics.xml"
 }

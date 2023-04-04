@@ -1,30 +1,34 @@
+package org.chronusartcenter.news;
+
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import org.chronusartcenter.Context;
+import org.chronusartcenter.rpc.OkHttpWrapper;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BaiduTranslate {
-    private GlobalContext globalContext;
+    private final Context context;
     private static final String SEPARATOR = "\n\n";
 
-    public BaiduTranslate(GlobalContext globalContext) {
-        this.globalContext = globalContext;
+    public BaiduTranslate(Context globalContext) {
+        this.context = globalContext;
     }
 
     // TODO: cache access token locally
     public String getAccessToken() throws IOException {
 
-        if (globalContext == null
-                && globalContext.loadConfig() == null
-                && globalContext.loadConfig().getJSONObject("baidu") == null) {
+        if (context == null
+                || context.loadConfig() == null
+                || context.loadConfig().getJSONObject("baidu") == null) {
             // TODO: log
             return "";
         }
 
-        String apiKey = globalContext.loadConfig().getJSONObject("baidu").getString("apiKey");
-        String secretKey = globalContext.loadConfig().getJSONObject("baidu").getString("secretKey");
+        String apiKey = context.loadConfig().getJSONObject("baidu").getString("apiKey");
+        String secretKey = context.loadConfig().getJSONObject("baidu").getString("secretKey");
 
         OkHttpWrapper httpWrapper = new OkHttpWrapper();
         final String url = "https://aip.baidubce.com/oauth/2.0/token?client_id="

@@ -1,10 +1,12 @@
+package org.chronusartcenter;
+
 import com.alibaba.fastjson2.JSONObject;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class GlobalContext {
+public class Context {
     public static final String CONFIG_FILE_PATH = "src/main/resources/config.json";
     public JSONObject loadConfig() {
         try {
