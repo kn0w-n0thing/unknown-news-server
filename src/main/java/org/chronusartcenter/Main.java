@@ -7,12 +7,10 @@ public class Main {
     public static void main(String[] args) {
         Context context = new Context();
         try {
-            NewsService news = new NewsService(context);
-            System.out.println(news.translateHeadlines(news.fetchHeadlines()).size());
-            for (var headline : news.translateHeadlines(news.fetchHeadlines())) {
-                System.out.println(JSONObject.toJSONString(headline));
-            }
+            Server server = new Server();
+            server.start();
         } catch (Exception e) {
+            // TODO: log
             e.printStackTrace();
         }
     }

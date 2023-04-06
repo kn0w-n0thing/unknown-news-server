@@ -1,7 +1,7 @@
 package org.chronusartcenter.news;
 
 import org.chronusartcenter.Context;
-import org.chronusartcenter.rpc.OkHttpWrapper;
+import org.chronusartcenter.network.OkHttpWrapper;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -80,8 +80,9 @@ public class NewsService {
             headlineItemList.get(i).setTranslation(translateTitleList.get(i));
         }
         return headlineItemList.stream().filter(
-                headlineItem -> {return
-                        !headlineItem.getTranslation().isEmpty() && !headlineItem.getTranslation().equals(" ");
+                headlineItem -> {
+                    return
+                            !headlineItem.getTranslation().isEmpty() && !headlineItem.getTranslation().equals(" ");
                 }).toList();
 
     }

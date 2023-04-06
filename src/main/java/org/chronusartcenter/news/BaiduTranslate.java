@@ -3,7 +3,7 @@ package org.chronusartcenter.news;
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 import org.chronusartcenter.Context;
-import org.chronusartcenter.rpc.OkHttpWrapper;
+import org.chronusartcenter.network.OkHttpWrapper;
 
 import java.io.IOException;
 import java.util.ArrayList;

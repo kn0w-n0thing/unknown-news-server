@@ -1,4 +1,4 @@
-package org.chronusartcenter.rpc;
+package org.chronusartcenter.network;
 
 import okhttp3.*;
 

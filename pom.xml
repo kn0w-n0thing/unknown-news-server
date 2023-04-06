@@ -20,15 +20,66 @@
             <artifactId>okhttp</artifactId>
             <version>4.10.0</version>
         </dependency>
+
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>2.0.26</version>
         </dependency>
+
         <dependency>
             <groupId>stax</groupId>
             <artifactId>stax</artifactId>
             <version>1.2.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.socket</groupId>
+            <artifactId>socket.io-server</artifactId>
+            <version>3.0.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>9.4.19.v20190610</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlet</artifactId>
+            <version>9.4.19.v20190610</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-servlets</artifactId>
+            <version>9.4.19.v20190610</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jetty.websocket</groupId>
+            <artifactId>websocket-server</artifactId>
+            <version>9.4.19.v20190610</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.socket</groupId>
+            <artifactId>engine.io-server</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.socket</groupId>
+            <artifactId>engine.io-server-jetty</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+
     </dependencies>
 </project>

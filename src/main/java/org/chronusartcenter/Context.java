@@ -8,6 +8,7 @@ import java.nio.file.Path;
 
 public class Context {
     public static final String CONFIG_FILE_PATH = "src/main/resources/config.json";
+
     public JSONObject loadConfig() {
         try {
             Path path = Path.of(CONFIG_FILE_PATH);
@@ -20,7 +21,7 @@ public class Context {
         }
     }
 
-    public void saveConfig(JSONObject config)throws IOException {
+    public void saveConfig(JSONObject config) throws IOException {
         try {
             String content = config.toString();
             Path path = Path.of(CONFIG_FILE_PATH);
