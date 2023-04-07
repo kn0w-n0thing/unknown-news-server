@@ -8,6 +8,8 @@ public class HeadlineModel {
         EN,
     }
 
+    @JSONField(name = "index")
+    private int index = -1;
     @JSONField(name = "lang")
     private Language language = Language.ZH;
 
@@ -61,5 +63,13 @@ public class HeadlineModel {
 
     public void setPublishDate(String publishDate) {
         this.publishDate = publishDate;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

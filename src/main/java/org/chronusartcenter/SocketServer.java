@@ -3,6 +3,7 @@ package org.chronusartcenter;
 import io.socket.socketio.server.SocketIoNamespace;
 import io.socket.socketio.server.SocketIoServer;
 import io.socket.socketio.server.SocketIoSocket;
+import org.chronusartcenter.cache.CacheService;
 import org.chronusartcenter.dalle.DalleService;
 import org.chronusartcenter.network.ServerWrapper;
 import org.chronusartcenter.news.NewsService;
@@ -47,15 +48,16 @@ public class SocketServer {
             System.out.println(news);
             // make dalle service singleton
             DalleService dalleService = new DalleService();
-            news.stream().forEach(headlineModel -> {
-                var image = dalleService.generateImage(headlineModel.getTranslation(), 1);
-                System.out.println(image.left);
-            });
-            // TODO: test code
-//            news.subList(0,1).stream().forEach(headlineModel -> {
-//                var image = dalleService.generateImage(headlineModel.getTranslation(), 1);
-//                System.out.println(image.left);
-//            });
+            CacheService cacheService = new CacheService(context);
+
+            for (int index = 0; index < news.size(); index++) {
+                var image = dalleService.generateImage(news.get(index).getTranslation(), 1);
+                news.get(index).setIndex(index);
+                cacheService.saveImage(index + "." + image.right, image.left.get(0));
+            }
+
+            cacheService.saveHeadlines(news.stream().filter(headlineModel -> headlineModel.getIndex() >= 0).toList());
+
             socket.send(GET_NEWS_DATA_EVENT, true, "Completed.");
             isProcessing.set(false);
         });
