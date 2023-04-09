@@ -4,6 +4,8 @@ import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import okhttp3.*;
 import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.log4j.Logger;
+import org.chronusartcenter.Context;
 import org.chronusartcenter.network.OkHttpWrapper;
 
 import java.io.IOException;
@@ -11,18 +13,32 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class DalleService {
-    // TODO: move to config file
-    public static final String URL = "http://127.0.0.1:8080";
     public static final int TIMEOUT_SEC = 100;
+
+    private static String url;
+
+    private final Logger logger = Logger.getLogger(DalleService.class);
+
+    public DalleService(Context context) {
+        if (context == null
+            || context.loadConfig() == null
+                || context.loadConfig().getString("dalleServerUrl") == null) {
+            url = "http://127.0.0.1:8080";
+        } else {
+            url = context.loadConfig().getString("dalleServerUrl");
+        }
+    }
+
     public boolean check() {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(URL)
+                .url(url)
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
             return response.isSuccessful();
-        } catch (IOException e) {
+        } catch (IOException exception) {
+            logger.info("dalle service is offline: " + exception.toString());
             return false;
         }
     }
@@ -42,7 +58,7 @@ public class DalleService {
 
         RequestBody body = RequestBody.create(json.toString(), OkHttpWrapper.JSON);
         Request request = new Request.Builder()
-                .url(URL + "/generate")
+                .url(url + "/generate")
                 .post(body)
                 .headers(headers)
                 .build();
@@ -55,7 +71,7 @@ public class DalleService {
             }
             return null;
         } catch (IOException exception) {
-            // TODO: log
+            logger.error(exception.toString());
             return null;
         }
     }

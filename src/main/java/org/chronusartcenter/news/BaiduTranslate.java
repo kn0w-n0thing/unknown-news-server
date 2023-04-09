@@ -2,6 +2,7 @@ package org.chronusartcenter.news;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
+import org.apache.log4j.Logger;
 import org.chronusartcenter.Context;
 import org.chronusartcenter.network.OkHttpWrapper;
 
@@ -13,6 +14,8 @@ public class BaiduTranslate {
     private final Context context;
     private static final String SEPARATOR = "\n\n";
 
+    private Logger logger = Logger.getLogger(BaiduTranslate.class);
+
     public BaiduTranslate(Context globalContext) {
         this.context = globalContext;
     }
@@ -23,7 +26,7 @@ public class BaiduTranslate {
         if (context == null
                 || context.loadConfig() == null
                 || context.loadConfig().getJSONObject("baidu") == null) {
-            // TODO: log
+            logger.error("No api key and secret key for baidu translation!");
             return "";
         }
 
@@ -61,7 +64,7 @@ public class BaiduTranslate {
     // In case of rpc failure, here we set the limit to 2000 CHARACTERS.
     public List<String> translate(List<String> textList) {
         if (textList == null || textList.size() == 0) {
-            // TODO: log
+            logger.info("Empty text list to translate.");
             return null;
         }
 
@@ -87,7 +90,7 @@ public class BaiduTranslate {
                 }
             }
         } catch (Exception exception) {
-            // TODO: log
+            logger.error(exception.toString());
         }
         return results;
     }

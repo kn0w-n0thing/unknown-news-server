@@ -1,5 +1,6 @@
 package org.chronusartcenter.news;
 
+import org.apache.log4j.Logger;
 import org.chronusartcenter.Context;
 import org.chronusartcenter.network.OkHttpWrapper;
 
@@ -14,6 +15,8 @@ import java.util.List;
 
 public class NewsService {
     private final Context context;
+
+    private Logger logger = Logger.getLogger(Context.class);
 
     public NewsService(Context globalContext) {
         this.context = globalContext;
@@ -66,7 +69,7 @@ public class NewsService {
                 }
             }
         } catch (Exception exception) {
-            // TODO: log
+            logger.error(exception.toString());
         }
 
         return resultList;
