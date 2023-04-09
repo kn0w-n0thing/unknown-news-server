@@ -79,6 +79,11 @@ public class NewsService {
         BaiduTranslate baiduTranslate = new BaiduTranslate(context);
         var translateTitleList
                 = baiduTranslate.translate(headlineItemList.stream().map(HeadlineModel::getTitle).toList());
+
+        if (translateTitleList == null || translateTitleList.size() == 0) {
+            return null;
+        }
+
         for (int i = 0; i < headlineItemList.size(); i++) {
             headlineItemList.get(i).setTranslation(translateTitleList.get(i));
         }

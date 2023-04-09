@@ -72,4 +72,18 @@ public class HeadlineModel {
     public void setIndex(int index) {
         this.index = index;
     }
+
+
+    public void set(HeadlineModel headlineModel) {
+        if (headlineModel == null) {
+            return;
+        }
+
+        this.index = headlineModel.index;
+        this.title = headlineModel.title;
+        this.language = headlineModel.language;
+        this.translation = headlineModel.translation;
+        this.author = headlineModel.author;
+        this.publishDate = headlineModel.publishDate;
+    }
 }

@@ -27,6 +27,21 @@ public class CacheService {
         this.context = context;
     }
 
+    public String saveHeadline(HeadlineModel insertHeadline) {
+        if (insertHeadline == null) {
+            return null;
+        }
+
+        var headlineList = loadHeadlines();
+        for (var headline : headlineList) {
+            if (headline.getIndex() == insertHeadline.getIndex()) {
+                headline.set(insertHeadline);
+                break;
+            }
+        }
+        return saveHeadlines(headlineList);
+    }
+
     public String saveHeadlines(List<HeadlineModel> headlineModelList) {
         if (headlineModelList == null || headlineModelList.size() == 0) {
             return null;

@@ -41,8 +41,14 @@ public class BaiduTranslate {
         return JSONObject.parseObject(response).getString("access_token");
     }
 
-    public List<String> translateRpc(String text) throws IOException {
+    public List<String> translateRpc(String text) throws Exception {
+        ArrayList<String> result = new ArrayList<>();
         String accessToken = getAccessToken();
+
+        if (accessToken == null || accessToken.isEmpty()) {
+            throw new Exception("Access token is invalid!");
+        }
+
         OkHttpWrapper httpWrapper = new OkHttpWrapper();
         final String url = "https://aip.baidubce.com/rpc/2.0/mt/texttrans/v1?access_token=" + accessToken;
         JSONObject bodyObject = new JSONObject();
@@ -50,9 +56,13 @@ public class BaiduTranslate {
         bodyObject.put("from", "zh");
         bodyObject.put("to", "en");
         String response = httpWrapper.post(url, bodyObject.toString());
+
+        if (JSONObject.parseObject(response) == null
+                || JSONObject.parseObject(response).getJSONObject("result") == null) {
+            return result;
+        }
         JSONArray jsonArray = JSONObject.parseObject(response).getJSONObject("result").getJSONArray("trans_result");
 
-        ArrayList<String> result = new ArrayList<>();
         for (Object transResult : jsonArray) {
             String translated = ((JSONObject) transResult).getString("dst");
             result.add(translated);

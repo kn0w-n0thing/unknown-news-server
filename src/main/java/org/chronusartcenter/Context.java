@@ -1,6 +1,7 @@
 package org.chronusartcenter;
 
 import com.alibaba.fastjson2.JSONObject;
+import com.alibaba.fastjson2.JSONWriter;
 import org.apache.log4j.Logger;
 
 import java.io.IOException;
@@ -26,7 +27,7 @@ public class Context {
 
     public void saveConfig(JSONObject config) throws IOException {
         try {
-            String content = config.toString();
+            String content = config.toJSONString(JSONWriter.Feature.PrettyFormat);
             Path path = Path.of(CONFIG_FILE_PATH);
             Files.writeString(path, content);
         } catch (IOException exception) {
